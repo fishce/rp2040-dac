@@ -15,15 +15,19 @@ pico_sdk_init()
 # rest of your project
 
 add_executable(rp2040_dac_amp
-    main.c
-    usb_descriptors.c
-    dacamp.c
+    src/main.c
+    src/usb_descriptors.c
+    src/dacamp.c
+    src/dacamp_audio_utils.c
+    src/pcm5102a_output.c
 )
 
-pico_generate_pio_header(rp2040_dac_amp ${CMAKE_CURRENT_LIST_DIR}/hbridge.pio)
+pico_generate_pio_header(rp2040_dac_amp ${CMAKE_CURRENT_LIST_DIR}/src/hbridge.pio)
+pico_generate_pio_header(rp2040_dac_amp ${CMAKE_CURRENT_LIST_DIR}/src/i2s_tx.pio)
 
 # Make sure TinyUSB can find tusb_config.h
 target_include_directories(rp2040_dac_amp PUBLIC
+    src
     .
 )
 

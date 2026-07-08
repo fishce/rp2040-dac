@@ -1,0 +1,19 @@
+.program i2s_tx
+.side_set 2 opt
+
+.wrap_target
+    pull block
+    set y, 31
+left_bitloop:
+    out pins, 1 side 0b00
+    nop side 0b01
+    jmp y-- left_bitloop
+    nop side 0b10
+    pull block
+    set y, 31
+right_bitloop:
+    out pins, 1 side 0b10
+    nop side 0b11
+    jmp y-- right_bitloop
+    nop side 0b00
+.wrap
